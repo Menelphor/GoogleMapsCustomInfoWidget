@@ -10,6 +10,8 @@ class _InfoWidgetRouteLayout<T> extends SingleChildLayoutDelegate {
   _InfoWidgetRouteLayout({@required this.mapsWidgetSize});
 
 /// Depending of the size of the marker or the widget, the offset in y direction has to be adjusted;
+/// If one manages to get the markers to be the same size (They depend on the device pixel ratio!!!!)
+/// this if can be deleted.
   @override
   Offset getPositionForChild(Size size, Size childSize) {
     if (Platform.isIOS) {
