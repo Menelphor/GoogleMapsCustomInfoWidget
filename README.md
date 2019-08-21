@@ -41,12 +41,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PointObject point = PointObject(
-    child: Container(
-      color: Colors.white,
-      width: 50,
-      height: 50,
-      child: Text('Lorem Ipsum'),
-    ),
+    child: Text('Lorem Ipsum'),
     location: LatLng(47.6, 8.8796),
   );
 
@@ -85,6 +80,7 @@ class _HomePageState extends State<HomePage> {
 
           /// This fakes the onMapIdle, as the googleMaps on Map Idle does not always work
           /// When the Map Idles and a _infoWidgetRoute exists, it gets displayed.
+          ///  (see: https://github.com/flutter/flutter/issues/37682)
           onCameraMove: (newPosition) {
             _mapIdleSubscription?.cancel();
             _mapIdleSubscription = Future.delayed(Duration(milliseconds: 150))
@@ -106,9 +102,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// now my _onTap Method. First it creates the Info Widget Route and then animates the Camera near the 
-  /// location of the Marker and then on the Marker. The 2 animate Cameras are called to ensure that
-  /// the faked on Map Idle always gets called.
+  /// now my _onTap Method. First it creates the Info Widget Route and then
+  /// animates the Camera twice:
+  /// First to a place near the marker, then to the marker.
+  /// This is done to ensure that onCameraMove is always called
 
   _onTap(PointObject point) async {
     final RenderBox renderBox = context.findRenderObject();
@@ -148,5 +145,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
 ```
