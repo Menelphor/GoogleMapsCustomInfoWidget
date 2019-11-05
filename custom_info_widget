@@ -46,22 +46,19 @@ class _InfoWidgetRouteLayout<T> extends SingleChildLayoutDelegate {
 
 class InfoWidgetRoute extends PopupRoute {
   final Widget child;
-  final double width;
-  final double height;
   final BuildContext buildContext;
   final TextStyle textStyle;
   final Rect mapsWidgetSize;
-
   InfoWidgetRoute({
     @required this.child,
     @required this.buildContext,
     @required this.textStyle,
     @required this.mapsWidgetSize,
-    this.width = 150,
-    this.height = 50,
     this.barrierLabel,
-  });
-
+  })  : assert(lottoShop != null),
+        assert(buildContext != null),
+        assert(textStyle != null),
+        assert(mapsWidgetSize != null);
   @override
   Duration get transitionDuration => Duration(milliseconds: 100);
 
@@ -77,24 +74,30 @@ class InfoWidgetRoute extends PopupRoute {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    return MediaQuery.removePadding(
-      context: context,
-      removeBottom: true,
-      removeLeft: true,
-      removeRight: true,
-      removeTop: true,
-      child: Builder(builder: (BuildContext context) {
-        return CustomSingleChildLayout(
-          delegate: _InfoWidgetRouteLayout(
-              mapsWidgetSize: mapsWidgetSize, width: width, height: height),
-          child: InfoWidgetPopUp(
-            infoWidgetRoute: this,
-          ),
-        );
-      }),
+   return GestureDetector(
+      onTap: () => Navigator.of(context, rootNavigator: true).pop(),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Colors.transparent,
+        child: MediaQuery.removePadding(
+          context: context,
+          removeBottom: true,
+          removeLeft: true,
+          removeRight: true,
+          removeTop: true,
+          child: Builder(builder: (BuildContext context) {
+            return CustomSingleChildLayout(
+              delegate: _InfoWidgetRouteLayout(mapsWidgetSize: mapsWidgetSize),
+              child: InfoWidgetPopUp(
+                infoWidgetRoute: this,
+              ),
+            );
+          }),
+        ),
+      ),
     );
   }
-}
 
 class InfoWidgetPopUp extends StatefulWidget {
   const InfoWidgetPopUp({
