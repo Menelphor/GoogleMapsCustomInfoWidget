@@ -81,12 +81,26 @@ class _HomePageState extends State<HomePage> {
           /// This fakes the onMapIdle, as the googleMaps on Map Idle does not always work
           /// When the Map Idles and a _infoWidgetRoute exists, it gets displayed.
           ///  (see: https://github.com/flutter/flutter/issues/37682)
+          
+          /// The additional arguments in the if statement, are used to supress the info 
+          /// widget if the user changes the camera position while the camera is animating
+          /// towards the Location Marker
           onCameraMove: (newPosition) {
             _mapIdleSubscription?.cancel();
             _mapIdleSubscription = Future.delayed(Duration(milliseconds: 150))
                 .asStream()
                 .listen((_) {
-              if (_infoWidgetRoute != null) {
+              if (_infoWidgetRoute != null &&
+                 ((newPosition.target.latitude -
+                          point.location.latitude) *
+                      1000)
+                  .toInt() ==
+              0 &&
+          ((_currentPosition.target.longitude -
+                          point.location.longitude) *
+                      1000)
+                  .toInt() ==
+              0)
                 Navigator.of(context, rootNavigator: true)
                     .push(_infoWidgetRoute)
                     .then<void>(
