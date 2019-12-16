@@ -13,7 +13,7 @@ class _InfoWidgetRouteLayout<T> extends SingleChildLayoutDelegate {
       @required this.width});
 
   /// Depending of the size of the marker or the widget, the offset in y direction has to be adjusted;
-  /// If the appear to be of different size, the commented code can be uncommented and
+  /// If they appear to be of different size, the commented code can be uncommented and
   /// adjusted to get the right position of the Widget.
   /// Or better: Adjust the marker size based on the device pixel ratio!!!!)
 
