@@ -1,3 +1,6 @@
+library GoogleMapsCustomInfoWidget;
+
+/// A Calculator.
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:meta/meta.dart';
@@ -49,16 +52,17 @@ class InfoWidgetRoute extends PopupRoute {
   final BuildContext buildContext;
   final TextStyle textStyle;
   final Rect mapsWidgetSize;
+
   InfoWidgetRoute({
     @required this.child,
     @required this.buildContext,
     @required this.textStyle,
     @required this.mapsWidgetSize,
     this.barrierLabel,
-  })  : assert(lottoShop != null),
-        assert(buildContext != null),
+  })  : assert(buildContext != null),
         assert(textStyle != null),
         assert(mapsWidgetSize != null);
+
   @override
   Duration get transitionDuration => Duration(milliseconds: 100);
 
@@ -74,7 +78,7 @@ class InfoWidgetRoute extends PopupRoute {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-   return GestureDetector(
+    return GestureDetector(
       onTap: () => Navigator.of(context, rootNavigator: true).pop(),
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -98,6 +102,7 @@ class InfoWidgetRoute extends PopupRoute {
       ),
     );
   }
+}
 
 class InfoWidgetPopUp extends StatefulWidget {
   const InfoWidgetPopUp({
